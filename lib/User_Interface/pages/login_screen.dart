@@ -90,108 +90,110 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Background(
-        child: Form(
-          autovalidate: true, //modified
-          key: key, //modified
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                "LOGIN",
-                style: TextStyle(
-                    color: Color(0xFF6a2c70),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20),
-              ),
-              SizedBox(height: size.height * 0.03),
-              SvgPicture.asset(
-                "assets/icons/login.svg",
-                height: size.height * 0.35,
-              ),
-              SizedBox(height: size.height * 0.03),
-              RoundedInputField(
-                hintText: "Your Email",
-                emailController: emailController,
-              ),
-              RoundedPasswordField2("Password", passController),
-              SizedBox(
-                height: size.height * 0.02,
-              ),
-              RoundedButton(
-                //  دا الزرار الي هيوديك لصفحه الهووووووووووووووووووووم
-                text: "LOGIN",
-                press: () async {
-                  print(emailController.text);
-                  print(passController.text);
-                  final String email = emailController.text;
-                  final String pass = passController.text;
-                  final UserModel user1 = await createUser(email, pass);
-                  print(user);
-
-                  setState(() {
-                    user = user1;
-                  });
-                  if (user1 == null) //if user is wrong
-                  {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Invalid email or password')));
-                    //any ui change msln
-
-                  }
-                  if (user.firstTime == false) {
-                    // callMe();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          //if condition
-                          return MyBottomNavigationBar(
-                            user: user,
-                          );
-                          //return Home();
-                        },
-                      ),
-                    );
-                  } else {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          //if condition
-                          return ConfirmPassword(
-                            user: user,
-                          );
-                          //return Home();
-                        },
-                      ),
-                    );
-                  }
-                },
-              ),
-              SizedBox(height: size.height * 0.03),
-              GestureDetector(
-                child: Text(
-                  "Change Password",
+      body: SingleChildScrollView(
+        child: Background(
+          child: Form(
+            autovalidate: true, //modified
+            key: key, //modified
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "LOGIN",
                   style: TextStyle(
-                    color: Color(0xFF522546),
-                    fontWeight: FontWeight.w500,
-                  ),
+                      color: Color(0xFF6a2c70),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
                 ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return ChangePassword(
-                          user: user,
-                        );
-                      },
+                SizedBox(height: size.height * 0.03),
+                SvgPicture.asset(
+                  "assets/icons/login.svg",
+                  height: size.height * 0.35,
+                ),
+                SizedBox(height: size.height * 0.03),
+                RoundedInputField(
+                  hintText: "Your Email",
+                  emailController: emailController,
+                ),
+                RoundedPasswordField2("Password", passController),
+                SizedBox(
+                  height: size.height * 0.02,
+                ),
+                RoundedButton(
+                  //  دا الزرار الي هيوديك لصفحه الهووووووووووووووووووووم
+                  text: "LOGIN",
+                  press: () async {
+                    print(emailController.text);
+                    print(passController.text);
+                    final String email = emailController.text;
+                    final String pass = passController.text;
+                    final UserModel user1 = await createUser(email, pass);
+                    print(user);
+
+                    setState(() {
+                      user = user1;
+                    });
+                    if (user1 == null) //if user is wrong
+                    {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Invalid email or password')));
+                      //any ui change msln
+
+                    }
+                    if (user.firstTime == false) {
+                      // callMe();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            //if condition
+                            return MyBottomNavigationBar(
+                              user: user,
+                            );
+                            //return Home();
+                          },
+                        ),
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            //if condition
+                            return ConfirmPassword(
+                              user: user,
+                            );
+                            //return Home();
+                          },
+                        ),
+                      );
+                    }
+                  },
+                ),
+                SizedBox(height: size.height * 0.03),
+                GestureDetector(
+                  child: Text(
+                    "Change Password",
+                    style: TextStyle(
+                      color: Color(0xFF522546),
+                      fontWeight: FontWeight.w500,
                     ),
-                  );
-                },
-              )
-            ],
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return ChangePassword(
+                            user: user,
+                          );
+                        },
+                      ),
+                    );
+                  },
+                )
+              ],
+            ),
           ),
         ),
       ),

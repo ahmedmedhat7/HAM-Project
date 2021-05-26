@@ -72,61 +72,63 @@ class _ConfirmPasswordState extends State<ConfirmPassword> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Background(
-        child: Form(
-          //modified SingleChildScrollView
-          autovalidate: true, //modified
-          key: key, //modified
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                "New Password",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              ),
-              SizedBox(height: size.height * 0.05),
-              SvgPicture.asset(
-                "assets/icons/confirm.svg",
-                height: size.height * 0.2,
-              ),
-              SizedBox(height: size.height * 0.05),
-              RoundedPasswordField(" New Password ", curPassController),
-              SizedBox(
-                height: size.height * 0.00001,
-              ),
-              RoundedPasswordField("Confirm New Password", newPassController),
-              SizedBox(
-                height: size.height * 0.03,
-              ),
-              RoundedButton(
-                text: " Login ",
-                press: () async {
-                  print(curPassController.text);
-                  print(newPassController.text);
-                  final String curPass = curPassController.text;
-                  final String newPass = newPassController.text;
-                  final UserConfirm user = await createUser(curPass, newPass);
-                  setState(() {
-                    _user1 = user;
-                  });
-                  if (_user1 == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Invalid email or password')));
-                  } else if (_user1.status == "true") {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return HomeScreen();
-                        },
-                      ),
-                    );
-                  }
-                },
-              ),
-              _user1 == null ? Container() : Text("${_user1.status} "),
-              SizedBox(height: size.height * 0.02),
-            ],
+      body: SingleChildScrollView(
+        child: Background(
+          child: Form(
+            //modified SingleChildScrollView
+            autovalidate: true, //modified
+            key: key, //modified
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "New Password",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                SizedBox(height: size.height * 0.05),
+                SvgPicture.asset(
+                  "assets/icons/confirm.svg",
+                  height: size.height * 0.2,
+                ),
+                SizedBox(height: size.height * 0.05),
+                RoundedPasswordField(" New Password ", curPassController),
+                SizedBox(
+                  height: size.height * 0.00001,
+                ),
+                RoundedPasswordField("Confirm New Password", newPassController),
+                SizedBox(
+                  height: size.height * 0.03,
+                ),
+                RoundedButton(
+                  text: " Login ",
+                  press: () async {
+                    print(curPassController.text);
+                    print(newPassController.text);
+                    final String curPass = curPassController.text;
+                    final String newPass = newPassController.text;
+                    final UserConfirm user = await createUser(curPass, newPass);
+                    setState(() {
+                      _user1 = user;
+                    });
+                    if (_user1 == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Invalid email or password')));
+                    } else if (_user1.status == "true") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return HomeScreen();
+                          },
+                        ),
+                      );
+                    }
+                  },
+                ),
+                _user1 == null ? Container() : Text("${_user1.status} "),
+                SizedBox(height: size.height * 0.02),
+              ],
+            ),
           ),
         ),
       ),

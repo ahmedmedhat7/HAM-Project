@@ -9,6 +9,8 @@ import 'package:flutter_auth/User_Interface/pages/profile_screen.dart';
 import 'package:flutter_auth/User_Interface/pages/schedule_screen.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../pages/welcome_screen.dart';
+import '../pages/welcome_screen.dart';
 import 'listing_assistant_users.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -149,7 +151,7 @@ class MyDrawer extends StatelessWidget {
             ),
             onTap: () {}, // here for navigaition ystaaaaaaa
           ),
-          SizedBox(
+         /* SizedBox(
             height: 40,
           ),
           ListTile(
@@ -225,13 +227,23 @@ class MyDrawer extends StatelessWidget {
                 ),
               );
             }, // here for navigaition ystaaaaaaa
-          ),
+          ),*/
           SizedBox(
             height: size.height * 0.12,
           ),
-          SizedBox(
-            height: 50,
-          ),
+          Padding(
+            padding: const EdgeInsets.all(50.0),
+            child: RoundedButton( text: "SignOut" , press: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return WelcomeScreen();
+                  },
+                ),
+              );
+            },),
+          )
         ],
       ),
     ));
