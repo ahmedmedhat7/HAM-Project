@@ -1,17 +1,16 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_auth/User_Interface/components/bottom_navigation.dart';
 import 'package:flutter_auth/User_Interface/components/drawer.dart';
 import 'package:flutter_auth/User_Interface/components/profile_items.dart';
 import 'package:flutter_auth/User_Interface/pages/UserModel.dart';
-import 'package:flutter_auth/User_Interface/pages/home.dart';
-import 'package:flutter_auth/User_Interface/pages/schedule_screen.dart';
-import 'package:http/http.dart' as http;
+
+import 'change_password.dart';
+import 'welcome_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   final UserModel user;
 
   const ProfileScreen({Key key, this.user}) : super(key: key);
+
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
@@ -33,6 +32,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Scaffold(
             appBar: AppBar(
               elevation: 0,
+              actions: <Widget>[
+                IconButton(
+                icon:  Icon(Icons.login_rounded),
+                color: Colors.white,
+                iconSize: 30,
+                padding: EdgeInsets.only(right:17),
+                onPressed: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return WelcomeScreen();
+                      },
+                    ),
+                  );
+                },)
+              ],
               backgroundColor: Colors.pinkAccent,
             ),
             drawer: MyDrawer(
@@ -120,6 +136,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               infoChild(_width, "assets/icons/department.svg",
                                   '${widget.user.department}'),
                               // hereeeeee
+                              Center(
+                                child: GestureDetector(
+                                  child:
+                                  Text(
+                                    "Change My Password",
+                                    style: TextStyle(
+                                        color: Color(0xFF6F35A5),
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return ChangePassword();
+                                        },
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
                             ],
                           ),
                         )

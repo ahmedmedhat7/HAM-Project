@@ -32,7 +32,7 @@ class _AsDetailPageState extends State<AsDetailPage> {
                 height: height * 1,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                  image: AssetImage(widget.assistant.image),
+                  image: NetworkImage(widget.assistant.image),
                 )),
                 child: Container(
                   decoration: BoxDecoration(
